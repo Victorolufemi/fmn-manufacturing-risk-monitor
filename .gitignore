@@ -1,0 +1,38 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local run artifacts
+*.log
+
+# Original supplied CSVs kept at the repo root during development.
+# The canonical copy this project uses lives in data/.
+/project1_supply_chain_demand*.csv
+/project2_manufacturing_sensors*.csv
+
+# Local tooling
+.claude/

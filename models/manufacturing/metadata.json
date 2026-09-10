@@ -1,0 +1,404 @@
+{
+  "model_name": "hist_gbm",
+  "model_version": "20260909-181042",
+  "trained_at": "2026-09-09T17:10:42.320027+00:00",
+  "horizon_hours": 72,
+  "horizon_rationale": "Among horizons that catch every failure episode in rolling-origin CV while staying under 0.05 false alerts per machine-day, this horizon has the highest prevalence-normalised PR-AUC lift. Raw PR-AUC rises mechanically with the horizon because the positive rate rises, so it cannot be used to compare horizons. The choice is also physically supported: the degradation ramp in this dataset begins 70-170 hours before failure, and this horizon gives maintenance planners several shifts of warning without leaving machines parked in an alerted state for the better part of a week.",
+  "risk_bands": {
+    "medium": 0.0727,
+    "high": 0.1027,
+    "critical": 0.7006
+  },
+  "operating_threshold": 0.1027,
+  "n_features": 47,
+  "feature_columns": [
+    "temperature_c",
+    "vibration_mm_s",
+    "run_hours_since_maintenance",
+    "log_run_hours",
+    "temp_dev_from_baseline",
+    "vib_dev_from_baseline",
+    "temp_z_vs_baseline",
+    "vib_z_vs_baseline",
+    "vib_ratio_to_baseline",
+    "temp_roll_mean_6h",
+    "vib_roll_mean_6h",
+    "temp_roll_std_6h",
+    "vib_roll_std_6h",
+    "temp_roll_max_6h",
+    "vib_roll_max_6h",
+    "temp_roll_mean_24h",
+    "vib_roll_mean_24h",
+    "temp_roll_std_24h",
+    "vib_roll_std_24h",
+    "temp_roll_max_24h",
+    "vib_roll_max_24h",
+    "temp_roll_mean_72h",
+    "vib_roll_mean_72h",
+    "temp_roll_mean_24h_z",
+    "vib_roll_mean_24h_z",
+    "temp_change_1h",
+    "vib_change_1h",
+    "temp_change_6h",
+    "vib_change_6h",
+    "temp_change_24h",
+    "vib_change_24h",
+    "temp_slope_24h",
+    "vib_slope_24h",
+    "temp_slope_6h",
+    "vib_slope_6h",
+    "temp_accel",
+    "vib_accel",
+    "temp_short_vs_long",
+    "vib_short_vs_long",
+    "has_prior_failure",
+    "hours_since_last_failure",
+    "prior_failure_count",
+    "hour_sin",
+    "hour_cos",
+    "day_of_week",
+    "temp_imputed",
+    "vib_imputed"
+  ],
+  "feature_importance": [
+    {
+      "feature": "temp_roll_mean_24h_z",
+      "importance": 0.64906
+    },
+    {
+      "feature": "vib_roll_std_24h",
+      "importance": 0.34894
+    },
+    {
+      "feature": "temp_roll_std_24h",
+      "importance": 0.00151
+    },
+    {
+      "feature": "vib_ratio_to_baseline",
+      "importance": 0.0003
+    },
+    {
+      "feature": "temp_roll_mean_72h",
+      "importance": 7e-05
+    },
+    {
+      "feature": "run_hours_since_maintenance",
+      "importance": 5e-05
+    },
+    {
+      "feature": "vib_roll_mean_24h_z",
+      "importance": 3e-05
+    },
+    {
+      "feature": "temp_roll_max_24h",
+      "importance": 2e-05
+    },
+    {
+      "feature": "vib_dev_from_baseline",
+      "importance": 1e-05
+    },
+    {
+      "feature": "vib_change_24h",
+      "importance": 0.0
+    },
+    {
+      "feature": "vib_slope_6h",
+      "importance": 0.0
+    },
+    {
+      "feature": "vib_slope_24h",
+      "importance": 0.0
+    },
+    {
+      "feature": "hour_sin",
+      "importance": 0.0
+    }
+  ],
+  "group_importance": [
+    {
+      "group": "temperature_level",
+      "label": "Temperature level",
+      "description": "How hot the machine is running versus its own normal.",
+      "features": [
+        "temperature_c",
+        "temp_dev_from_baseline",
+        "temp_z_vs_baseline",
+        "temp_roll_mean_6h",
+        "temp_roll_max_6h",
+        "temp_roll_mean_24h",
+        "temp_roll_max_24h",
+        "temp_roll_mean_72h",
+        "temp_roll_mean_24h_z"
+      ],
+      "importance": 0.92879,
+      "average_precision_drop": 0.30429
+    },
+    {
+      "group": "vibration_instability",
+      "label": "Vibration instability",
+      "description": "How erratic and fast-rising vibration has been.",
+      "features": [
+        "vib_roll_std_6h",
+        "vib_roll_std_24h",
+        "vib_change_1h",
+        "vib_change_6h",
+        "vib_change_24h",
+        "vib_slope_24h",
+        "vib_slope_6h",
+        "vib_accel",
+        "vib_short_vs_long"
+      ],
+      "importance": 0.03562,
+      "average_precision_drop": 0.01167
+    },
+    {
+      "group": "vibration_level",
+      "label": "Vibration level",
+      "description": "How high vibration is right now versus this machine's normal.",
+      "features": [
+        "vibration_mm_s",
+        "vib_dev_from_baseline",
+        "vib_z_vs_baseline",
+        "vib_ratio_to_baseline",
+        "vib_roll_mean_6h",
+        "vib_roll_max_6h",
+        "vib_roll_mean_24h",
+        "vib_roll_max_24h",
+        "vib_roll_mean_72h",
+        "vib_roll_mean_24h_z"
+      ],
+      "importance": 0.03538,
+      "average_precision_drop": 0.01159
+    },
+    {
+      "group": "temperature_instability",
+      "label": "Temperature instability",
+      "description": "How erratic and fast-rising temperature has been.",
+      "features": [
+        "temp_roll_std_6h",
+        "temp_roll_std_24h",
+        "temp_change_1h",
+        "temp_change_6h",
+        "temp_change_24h",
+        "temp_slope_24h",
+        "temp_slope_6h",
+        "temp_accel",
+        "temp_short_vs_long"
+      ],
+      "importance": 0.0002,
+      "average_precision_drop": 7e-05
+    },
+    {
+      "group": "maintenance_history",
+      "label": "Maintenance and run hours",
+      "description": "Hours run since the last maintenance, and past failures.",
+      "features": [
+        "run_hours_since_maintenance",
+        "log_run_hours",
+        "has_prior_failure",
+        "hours_since_last_failure",
+        "prior_failure_count"
+      ],
+      "importance": 1e-05,
+      "average_precision_drop": 0.0
+    },
+    {
+      "group": "time_of_day",
+      "label": "Time pattern",
+      "description": "Hour of day and day of week.",
+      "features": [
+        "hour_sin",
+        "hour_cos",
+        "day_of_week"
+      ],
+      "importance": 0.0,
+      "average_precision_drop": 0.0
+    },
+    {
+      "group": "data_quality",
+      "label": "Sensor data quality",
+      "description": "Whether the current readings had to be filled in.",
+      "features": [
+        "temp_imputed",
+        "vib_imputed"
+      ],
+      "importance": 0.0,
+      "average_precision_drop": 0.0
+    }
+  ],
+  "cold_start": {
+    "threshold_hours": 336,
+    "machines": [
+      "MCH-300",
+      "MCH-301"
+    ],
+    "history_hours": {
+      "MCH-300": 72,
+      "MCH-301": 72
+    },
+    "strategy": "Pooled (fleet-wide) model with production-line baselines. New machines have no failure history of their own, so a per-machine model is impossible; the pooled model transfers the fleet degradation signature, and the machine-relative features fall back to a line-level baseline until 96 hours of history exist. Long-window features (72h rolling, 24h change) are also partly unavailable, which the model tolerates natively via NaN handling. Scores for these machines carry an explicit limited-history warning in the API and UI and are never presented with the same confidence as established machines.",
+    "measurable_limitation": "Neither newly commissioned machine has experienced a failure, so there is no held-out evidence about accuracy on machines with this little history. The honest statement is that their scores are unvalidated, not that they are accurate."
+  },
+  "scored_history_file": "scored_history.parquet",
+  "dataset": {
+    "rows_raw": 43354,
+    "rows_after_dedup": 43344,
+    "duplicates_removed": 10,
+    "machines": 17,
+    "failure_events": 17,
+    "date_min": "2026-01-01 00:00:00",
+    "date_max": "2026-04-30 23:00:00"
+  },
+  "calibration": {
+    "method": "isotonic regression on pooled out-of-fold predictions",
+    "why": "The raw classifier separates well but is not calibrated; at the tuned operating point an alarming machine scored around 0.03, which is meaningless on a plant floor. Isotonic calibration is monotone, so PR-AUC and ROC-AUC are unchanged - only the numbers shown to people move.",
+    "raw_threshold_equivalent": 0.007
+  },
+  "validation": {
+    "scheme": "rolling-origin CV on the development period; one held-out test period",
+    "dev_end": "2026-04-06 00:00:00",
+    "cv_folds": [
+      [
+        "2026-02-15 00:00:00",
+        "2026-03-05 00:00:00"
+      ],
+      [
+        "2026-03-05 00:00:00",
+        "2026-03-20 00:00:00"
+      ],
+      [
+        "2026-03-20 00:00:00",
+        "2026-04-06 00:00:00"
+      ]
+    ],
+    "dev_rows": 33881,
+    "dev_positives": 725,
+    "dev_failure_episodes": 10,
+    "test_rows": 9137,
+    "test_positives": 498,
+    "test_failure_episodes": 7
+  },
+  "headline_metrics": {
+    "test_pr_auc": 0.9732210725330968,
+    "test_pr_auc_lift": 17.86,
+    "test_roc_auc": 0.9984587034327842,
+    "test_precision": 0.8533568904593639,
+    "test_recall": 0.9698795180722891,
+    "test_f1": 0.9078947368421053,
+    "test_confusion_matrix": {
+      "true_negative": 8556,
+      "false_positive": 83,
+      "false_negative": 15,
+      "true_positive": 483
+    },
+    "test_episode_recall": 1.0,
+    "test_episodes_detected": 7,
+    "test_episodes_total": 7,
+    "test_median_lead_time_hours": 71.0,
+    "test_min_lead_time_hours": 66.0,
+    "test_false_alerts_per_machine_day": 0.0394,
+    "oof_pr_auc": 0.9340388899197892,
+    "oof_precision": 0.7494089834515366,
+    "oof_recall": 0.9709035222052067
+  },
+  "threshold": {
+    "operating_threshold": 0.1027,
+    "selection_rule": "Maximises F2 on pooled out-of-fold predictions from the rolling-origin CV. F2 weights recall twice as heavily as precision because an unplanned stoppage costs hours of lost production while a false alert costs one inspection.",
+    "risk_bands": {
+      "medium": 0.0727,
+      "high": 0.1027,
+      "critical": 0.7006
+    },
+    "band_rationale": {
+      "CRITICAL": "Lowest threshold at or above HIGH with out-of-fold precision >= 0.90.",
+      "HIGH": "F2-optimal operating threshold - act on this shift.",
+      "MEDIUM": "Watch list: highest threshold below HIGH that still recovers >= 98% of at-risk hours.",
+      "LOW": "No elevated risk signal."
+    },
+    "oof_precision": 0.7494089834515366,
+    "oof_recall": 0.9709035222052067,
+    "oof_f1": 0.8458972648432288,
+    "oof_f2": 0.9167148640832852,
+    "oof_alerts": 846
+  },
+  "model_comparison": {
+    "majority_baseline": {
+      "oof_pr_auc": 0.03195063867611633,
+      "oof_pr_auc_lift": 0.87,
+      "oof_roc_auc": 0.41394609519820125,
+      "best_f2": 0.13139894880840952,
+      "best_f2_threshold": 0.015926,
+      "precision_at_best_f2": 0.03236676421033963,
+      "recall_at_best_f2": 0.55895865237366,
+      "episode_recall": 0.5556,
+      "episodes_detected": 5,
+      "episodes_total": 9,
+      "false_alerts_per_machine_day": 0.0271
+    },
+    "sensor_rule_baseline": {
+      "oof_pr_auc": 0.6935970169060444,
+      "oof_pr_auc_lift": 18.78,
+      "oof_roc_auc": 0.9857904770503646,
+      "best_f2": 0.8012063991607659,
+      "best_f2_threshold": 0.713328,
+      "precision_at_best_f2": 0.5087427144046628,
+      "recall_at_best_f2": 0.9356814701378254,
+      "episode_recall": 1.0,
+      "episodes_detected": 9,
+      "episodes_total": 9,
+      "false_alerts_per_machine_day": 0.2687
+    },
+    "logistic_regression": {
+      "oof_pr_auc": 0.9259001733602291,
+      "oof_pr_auc_lift": 25.07,
+      "oof_roc_auc": 0.9937896230886918,
+      "best_f2": 0.8964084298011279,
+      "best_f2_threshold": 0.076653,
+      "precision_at_best_f2": 0.797886393659181,
+      "recall_at_best_f2": 0.9249617151607963,
+      "episode_recall": 1.0,
+      "episodes_detected": 9,
+      "episodes_total": 9,
+      "false_alerts_per_machine_day": 0.0353
+    },
+    "random_forest": {
+      "oof_pr_auc": 0.8851658033076278,
+      "oof_pr_auc_lift": 23.97,
+      "oof_roc_auc": 0.9956571696404395,
+      "best_f2": 0.9077933200114188,
+      "best_f2_threshold": 0.246264,
+      "precision_at_best_f2": 0.7138047138047138,
+      "recall_at_best_f2": 0.9739663093415007,
+      "episode_recall": 1.0,
+      "episodes_detected": 9,
+      "episodes_total": 9,
+      "false_alerts_per_machine_day": 0.0543
+    },
+    "hist_gbm": {
+      "oof_pr_auc": 0.9340388899197892,
+      "oof_pr_auc_lift": 25.29,
+      "oof_roc_auc": 0.9975280885134511,
+      "best_f2": 0.9167148640832852,
+      "best_f2_threshold": 0.007,
+      "precision_at_best_f2": 0.7494089834515366,
+      "recall_at_best_f2": 0.9709035222052067,
+      "episode_recall": 1.0,
+      "episodes_detected": 9,
+      "episodes_total": 9,
+      "false_alerts_per_machine_day": 0.0421
+    },
+    "hist_gbm_balanced": {
+      "oof_pr_auc": 0.8897447716633612,
+      "oof_pr_auc_lift": 24.09,
+      "oof_roc_auc": 0.9959668836253299,
+      "best_f2": 0.9092206679988581,
+      "best_f2_threshold": 0.001617,
+      "precision_at_best_f2": 0.7149270482603816,
+      "recall_at_best_f2": 0.9754977029096478,
+      "episode_recall": 1.0,
+      "episodes_detected": 9,
+      "episodes_total": 9,
+      "false_alerts_per_machine_day": 0.0692
+    }
+  }
+}

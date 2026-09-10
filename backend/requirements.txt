@@ -1,0 +1,26 @@
+# Python 3.11 (see .python-version and the Dockerfile).
+# Floor is 3.10: the pydantic response models use `float | None` annotations,
+# which pydantic resolves at runtime and which do not exist before 3.10.
+
+# --- Serving -----------------------------------------------------------
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+python-dotenv
+
+# --- Pinned: these three wrote models/manufacturing/model.joblib -------
+# A pickle is coupled to the library that produced it. Left as ">=" a fresh
+# build months from now could install a newer scikit-learn, and loading the
+# committed artifact would warn at best and fail at worst. Pin them together,
+# and re-pin deliberately when you retrain.
+scikit-learn
+numpy
+joblib
+
+# --- Data --------------------------------------------------------------
+pandas
+# pyarrow>=18,<22
+
+# --- LLM ---------------------------------------------------------------
+anthropic

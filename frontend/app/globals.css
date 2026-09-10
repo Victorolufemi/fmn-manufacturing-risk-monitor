@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* This interface deliberately commits to a single light theme: it is a
+       plant-floor tool where the risk colours (red / amber / green) must stay
+       consistent and legible under bright factory lighting, and a second
+       palette would be a second thing to keep accessible.
+       Declaring color-scheme is what makes that commitment real. Without it,
+       a viewer whose OS is in dark mode gets browser-rendered chrome - the
+       date-picker popup and its calendar icon, scrollbars, selection
+       highlight, autofill - drawn dark against these light cards. */
+    color-scheme: light;
+
+    --background: 210 20% 98%;
+    --foreground: 222 30% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 30% 12%;
+
+    --primary: 217 76% 32%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 214 32% 94%;
+    --secondary-foreground: 222 30% 18%;
+
+    --muted: 214 32% 94%;
+    --muted-foreground: 215 16% 42%;
+
+    --accent: 214 32% 92%;
+    --accent-foreground: 222 30% 18%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 217 76% 40%;
+
+    --risk-critical: 0 72% 45%;
+    --risk-high: 24 90% 42%;
+    --risk-medium: 40 92% 38%;
+    --risk-low: 152 45% 32%;
+
+    --radius: 0.6rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Tabular figures keep sensor readings from jittering as they update. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}

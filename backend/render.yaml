@@ -1,0 +1,38 @@
+# Render blueprint for the FastAPI backend.
+#
+# Deploy: in Render, New > Blueprint, point at this repository, and set the
+# secret values marked sync:false in the dashboard.
+#
+# Place this file at the repository root (or point Render at backend/render.yaml)
+# and keep dockerContext at the repository root so the image can include the
+# dataset and model artifacts.
+services:
+  - type: web
+    name: fmn-manufacturing-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      # Comma-separated list of allowed browser origins. Set this to your
+      # Vercel production URL. Do not use "*" - the API is public but the
+      # allowed origin list is what keeps arbitrary sites from calling it
+      # with the user's browser.
+      - key: FRONTEND_URL
+        sync: false
+      # Server-side only. Never exposed to the browser and never returned by
+      # any endpoint. Leave unset to run without AI explanations - the app
+      # falls back to evidence-only summaries and stays fully usable.
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: MODEL_NAME
+        value: claude-opus-5
+      - key: PYTHON_VERSION
+        value: "3.11"
