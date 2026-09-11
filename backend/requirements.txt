@@ -3,24 +3,27 @@
 # which pydantic resolves at runtime and which do not exist before 3.10.
 
 # --- Serving -----------------------------------------------------------
-fastapi
-uvicorn
-pydantic
-pydantic-settings
-python-dotenv
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.34,<1.0
+pydantic>=2.10,<3.0
+pydantic-settings>=2.7,<3.0
+python-dotenv>=1.0,<2.0
 
-# --- Pinned: these three wrote models/manufacturing/model.joblib -------
-# A pickle is coupled to the library that produced it. Left as ">=" a fresh
-# build months from now could install a newer scikit-learn, and loading the
-# committed artifact would warn at best and fail at worst. Pin them together,
-# and re-pin deliberately when you retrain.
-scikit-learn
-numpy
-joblib
+# --- Pinned: scikit-learn wrote models/manufacturing/model.joblib -------
+# A pickle is coupled to the library that produced it. Left unpinned, a fresh
+# build installs a newer scikit-learn and unpickling emits
+# InconsistentVersionWarning - "use at your own risk" is not a deployment
+# strategy. Pin exactly, and re-pin deliberately when you retrain.
+scikit-learn==1.9.0
+joblib>=1.4,<2.0
+numpy>=2.0,<3.0
 
 # --- Data --------------------------------------------------------------
-pandas
-# pyarrow>=18,<22
+# pyarrow is REQUIRED, not optional: scored_history.parquet is the serving
+# cache and pandas cannot read parquet without it. Without this line the app
+# imports fine and then dies at startup.
+pandas>=2.2,<4.0
+pyarrow
 
 # --- LLM ---------------------------------------------------------------
-anthropic
+anthropic>=1.4,<2.0
