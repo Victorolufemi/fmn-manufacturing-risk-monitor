@@ -149,7 +149,6 @@ fmn-ai-assessment/
 │   └── types/api.ts                types mirroring the backend schemas
 ├── data/project2_manufacturing_sensors.csv
 ├── models/manufacturing/           trained artifacts (committed)
-├── presentation/project2_outline.md
 └── .env.example
 ```
 
@@ -876,4 +875,3 @@ GET /api/machines/MCH-203?as_of=2026-04-29T12:00:00
 
 - [`backend/reports/data_profile.md`](backend/reports/data_profile.md) - full data profiling, every figure computed from the CSV
 - [`backend/reports/model_summary.md`](backend/reports/model_summary.md) - model card, every metric read from the training artifacts
-- [`presentation/project2_outline.md`](presentation/project2_outline.md) - presentation outline
